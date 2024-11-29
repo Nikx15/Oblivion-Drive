@@ -34,9 +34,6 @@ public class JumpAction : PlayerAction
 
     void Jump()
     {
-        if (!groundInfo.ground)
-            currentJumps= jumps;
-
         if (currentJumps <= 0) return;
 
         currentJumps--;

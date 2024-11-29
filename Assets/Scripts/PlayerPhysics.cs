@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerPhysics : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class PlayerPhysics : MonoBehaviour
     public Action onPlayerPhysicsUpdate;
 
     public float speed => horizontalVelocity.magnitude;
+    
+    public float angles = Vector3.Angle(-)
 
     private void FixedUpdate()
     {
@@ -82,6 +86,12 @@ public class PlayerPhysics : MonoBehaviour
         Vector3 point = ground ? hit.point : rb.transform.position;
 
         Vector3 normal = ground ? hit.normal : Vector3.up;
+
+        if (float < 20)
+        {
+
+        }
+        
 
         if (ground != groundInfo.ground)
         {
