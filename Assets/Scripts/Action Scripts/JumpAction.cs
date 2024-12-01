@@ -39,8 +39,11 @@ public class JumpAction : PlayerAction
         currentJumps--;
 
         float jumpForce = groundInfo.ground ? this.jumpForce : airJumpForce;
-
-        rb.velocity = (groundInfo.normal * jumpForce)
-            + PlayerPhysics.horizontalVelocity;
+        
+        if (groundInfo.ground == true)
+        {
+            rb.velocity = (groundInfo.normal * jumpForce)
+           + PlayerPhysics.horizontalVelocity;
+        }
     }
 }

@@ -17,8 +17,10 @@ public class PlayerPhysics : MonoBehaviour
     public Action onPlayerPhysicsUpdate;
 
     public float speed => horizontalVelocity.magnitude;
+
+    public float gravityFactor = 50f;
     
-    public float angles = Vector3.Angle(-)
+    public bool inAir = false;
 
     private void FixedUpdate()
     {
@@ -50,11 +52,19 @@ public class PlayerPhysics : MonoBehaviour
     private void LateFixedUpdate()
     {
         Ground();
+        if (inAir != true && groundInfo.ground)
+        {
+            Snap();
+        }
 
-        Snap();
+        if (inAir == true)
+        {
+            groundInfo.ground = false;
+        }
 
         if (groundInfo.ground)
             rb.velocity = horizontalVelocity;
+        inAir = false;
     }
 
     [SerializeField] float groundDistance;
@@ -76,6 +86,7 @@ public class PlayerPhysics : MonoBehaviour
 
     void Ground()
     {
+        Debug.Log("Yum, Ground");
         float maxDistance = Mathf.Max(rb.centerOfMass.y, 0) + (rb.sleepThreshold * Time.fixedDeltaTime);
 
         if (groundInfo.ground && verticalSpeed < rb.sleepThreshold)
@@ -87,11 +98,18 @@ public class PlayerPhysics : MonoBehaviour
 
         Vector3 normal = ground ? hit.normal : Vector3.up;
 
-        if (float < 20)
-        {
+        float angle = Vector3.Angle(point, normal);
 
+
+        if (speed < 20 && groundInfo.ground == true)
+        {
+            if (angle > 67 || angle < 320)
+            {
+                ground = false;
+                Debug.Log("im falling!");
+                inAir = true;
+            }
         }
-        
 
         if (ground != groundInfo.ground)
         {
@@ -107,6 +125,13 @@ public class PlayerPhysics : MonoBehaviour
             normal = normal,
             ground = ground,
         };
+    }
+
+    void Fall()
+    {
+        Debug.Log("IM FALLING");
+        rb.AddRelativeForce(Vector3.down * gravityFactor);
+        groundInfo.ground = false;
     }
 
     void Snap()
