@@ -52,20 +52,34 @@ public class PlayerPhysics : MonoBehaviour
 
     private void LateFixedUpdate()
     {
-        Ground();
-        if (inAir != true && groundInfo.ground)
+        inAir = false;
+        if (!inAir)
+        {
+            Ground();
+        }
+        else if (inAir)
+        {
+            groundInfo.ground = false;
+            Fall();
+        }
+
+        if (!inAir && groundInfo.ground)
         {
             Snap();
         }
 
-        if (inAir == true)
+        if (!groundInfo.ground)
         {
-            groundInfo.ground = false;
+            Debug.Log("in air!");
+            inAir = true;
+            // rb.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 2f * Time.deltaTime);
+            rb.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 2f * speed / 10 * Time.deltaTime);
         }
 
         if (groundInfo.ground)
+        {
             rb.velocity = horizontalVelocity;
-        inAir = false;
+        }
     }
 
     [SerializeField] float groundDistance;
@@ -77,6 +91,8 @@ public class PlayerPhysics : MonoBehaviour
         public Vector3 normal;
 
         public bool ground;
+
+        public float angle;
     }
 
     [HideInInspector] public GroundInfo groundInfo;
@@ -125,6 +141,7 @@ public class PlayerPhysics : MonoBehaviour
             point = point,
             normal = normal,
             ground = ground,
+            angle = angle,
         };
 
         return hit;
@@ -134,7 +151,7 @@ public class PlayerPhysics : MonoBehaviour
     {
         StartCoroutine(SelfRight());
         Debug.Log("IM FALLING");
-        //rb.AddRelativeForce(Vector3.down * gravityFactor);
+        rb.AddRelativeForce(Vector3.down * gravityFactor);
         groundInfo.ground = false;
     }
 
@@ -156,9 +173,9 @@ public class PlayerPhysics : MonoBehaviour
         while (transform.up.y != Vector3.up.y)
         {
             Vector3 myUp = new Vector3(0, transform.up.y, 0);
-            float delta = Vector3.SignedAngle(myUp, Vector3.up,Vector3.up);
+            float delta = Vector3.SignedAngle(myUp, Vector3.up, Vector3.up);
             Vector3 upDelta = new Vector3(0, delta, 0);
-            transform.Rotate(new Vector3(0, delta*.1f, 0));
+            transform.Rotate(new Vector3(0, delta * .1f, 0));
             yield return new WaitForEndOfFrame();
         }
     }

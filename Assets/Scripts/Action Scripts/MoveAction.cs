@@ -33,7 +33,7 @@ public class MoveAction : PlayerAction
 
     [SerializeField] float maxTurnSpeed;
 
-    [SerializeField, Range(0, 1)] float turnDeceleration; 
+    [SerializeField, Range(0, 1)] float turnDeceleration;
 
     [SerializeField] float brakeSpeed;
 
@@ -60,7 +60,7 @@ public class MoveAction : PlayerAction
         braking &= (braking && brakeTime > 0 && brakeTimer > 0)
             || Vector3.Dot(moveVector.normalized, PlayerPhysics.horizontalVelocity.normalized) < -brakeThreshold;
 
-        if (braking) 
+        if (braking)
             brakeTimer -= Time.deltaTime;
 
         if (braking && !wasBraking)
@@ -70,26 +70,26 @@ public class MoveAction : PlayerAction
             Decelerate(brakeSpeed);
         else if (move.magnitude > 0)
         {
+
             if (Vector3.Dot(moveVector.normalized, PlayerPhysics.horizontalVelocity.normalized) >= (groundInfo.ground ? -softBrakeThreshold : 0))
                 Accelerate(acceleration);
             else
                 Decelerate(brakeSpeed);
         }
-            
+
         else
             Decelerate(deceleration);
 
         void Accelerate(float speed)
         {
-            float maxRadDelta = Mathf.Lerp(minTurnSpeed, maxTurnSpeed, PlayerPhysics.speed/ maxSpeed) * Mathf.PI * Time.deltaTime; 
+            float maxRadDelta = Mathf.Lerp(minTurnSpeed, maxTurnSpeed, PlayerPhysics.speed / maxSpeed) * Mathf.PI * Time.deltaTime;
 
             float maxDistDelta = speed * Time.deltaTime;
-
 
             Vector3 velocity = Vector3.RotateTowards(PlayerPhysics.horizontalVelocity, moveVector * maxSpeed, maxRadDelta, maxDistDelta);
 
             velocity -= velocity * (Vector3.Angle(PlayerPhysics.horizontalVelocity, velocity) / 180 * turnDeceleration);
-            
+
             rb.velocity = velocity + PlayerPhysics.verticalVelocity;
         }
 
