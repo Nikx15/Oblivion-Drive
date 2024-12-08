@@ -23,8 +23,18 @@ public class PlayerPhysics : MonoBehaviour
 
     public bool inAir = false;
 
+    public MovementState state;
+    public enum MovementState
+    {
+        idle,
+        move,
+        air
+    }
+
     private void FixedUpdate()
     {
+        StateHandler();
+
         onPlayerPhysicsUpdate?.Invoke();
 
         if (!groundInfo.ground)
@@ -40,6 +50,27 @@ public class PlayerPhysics : MonoBehaviour
             yield return new WaitForFixedUpdate();
 
             LateFixedUpdate();
+        }
+    }
+
+    private void StateHandler()
+    {
+        if (speed == 0 && groundInfo.ground)
+        {
+            state = MovementState.idle;
+            Debug.Log("Idle");
+        }
+            
+        else if (speed >= 1 && groundInfo.ground)
+        {
+            state = MovementState.move;
+            Debug.Log("Move");
+        }
+
+        else
+        {
+            state = MovementState.air;
+            Debug.Log("Air");
         }
     }
 
@@ -70,7 +101,7 @@ public class PlayerPhysics : MonoBehaviour
 
         if (!groundInfo.ground)
         {
-            Debug.Log("in air!");
+            //Debug.Log("in air!");
             inAir = true;
             // rb.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 2f * Time.deltaTime);
             rb.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, 0f, 0f), 2f * speed / 10 * Time.deltaTime);
@@ -103,7 +134,7 @@ public class PlayerPhysics : MonoBehaviour
 
     RaycastHit Ground()
     {
-        Debug.Log("Yum, Ground");
+        //Debug.Log("Yum, Ground");
         float maxDistance = Mathf.Max(rb.centerOfMass.y, 0) + (rb.sleepThreshold * Time.fixedDeltaTime);
 
         if (groundInfo.ground && verticalSpeed < rb.sleepThreshold)

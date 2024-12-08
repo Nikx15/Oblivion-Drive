@@ -4,6 +4,7 @@ using static PlayerPhysics;
 
 public class MoveAction : PlayerAction
 {
+
     Vector2 move;
 
     public void OnMove(InputAction.CallbackContext callbackContext)
