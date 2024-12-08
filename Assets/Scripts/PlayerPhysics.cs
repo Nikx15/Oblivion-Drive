@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class PlayerPhysics : MonoBehaviour
 {
     public Rigidbody rb;
+    private Animator animator;
 
     public LayerMask layerMask;
     public Vector3 horizontalVelocity => Vector3.ProjectOnPlane(rb.velocity, rb.transform.up);
@@ -31,10 +32,17 @@ public class PlayerPhysics : MonoBehaviour
         air
     }
 
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>(true);
+    }
+
     private void FixedUpdate()
     {
-        StateHandler();
+        animator.SetBool("Run", true);
+        Debug.Log(animator.GetFloat("Speed"));
 
+        StateHandler();
         onPlayerPhysicsUpdate?.Invoke();
 
         if (!groundInfo.ground)
