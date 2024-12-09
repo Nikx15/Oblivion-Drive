@@ -23,6 +23,9 @@ public class PlayerPhysics : MonoBehaviour
 
     public bool inAir = false;
 
+    public Animator animator;
+  
+
     public MovementState state;
     public enum MovementState
     {
@@ -38,12 +41,17 @@ public class PlayerPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
+        animator = GetComponent<Animator>();
+        animator.SetBool("IsJumping", inAir);
+
         StateHandler();
 
         onPlayerPhysicsUpdate?.Invoke();
 
         if (!groundInfo.ground)
-            Gravity();
+             Gravity();
+
+        if(groundInfo.ground)
 
         if (groundInfo.ground && verticalSpeed < rb.sleepThreshold)
             rb.velocity = horizontalVelocity;
@@ -69,6 +77,8 @@ public class PlayerPhysics : MonoBehaviour
         else if (speed >= 1 && groundInfo.ground)
         {
             state = MovementState.move;
+            animator.SetFloat("MovementSpeed", speed);
+            animator.SetFloat("RunFactor", speed / 20);
             Debug.Log("Move");
         }
 
