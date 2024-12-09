@@ -155,7 +155,7 @@ public class PlayerPhysics : MonoBehaviour
             {
                 ground = false;
                 inAir = true;
-                Debug.Log("im falling!");
+                Debug.Log("I got kicked!");
             }
         }
 

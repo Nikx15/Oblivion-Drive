@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SchoolFinalProjectakaTestLevelImGonnaKillMyselfOneDay.unity
+    guid: daea1fc932341d549b9ddf432618bcc3
   m_configObjects: {}
