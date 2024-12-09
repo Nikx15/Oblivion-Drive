@@ -31,6 +31,11 @@ public class PlayerPhysics : MonoBehaviour
         air
     }
 
+    private void Start()
+    {
+        state = MovementState.idle;
+    }
+
     private void FixedUpdate()
     {
         StateHandler();

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SchoolFinalProjectakaTestLevelImGonnaKillMyselfOneDay.unity
+    path: Assets/Scenes/SchoolProject/SchoolFinalProjectakaTestLevelImGonnaKillMyselfOneDay.unity
     guid: daea1fc932341d549b9ddf432618bcc3
+  - enabled: 1
+    path: Assets/Scenes/SchoolProject/Win.unity
+    guid: 748f88fdb722af54f9802fd71d691383
   m_configObjects: {}
