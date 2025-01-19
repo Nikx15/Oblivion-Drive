@@ -1,24 +1,9 @@
 fileFormatVersion: 2
-guid: afe895fa366dab64ca004704206dd362
+guid: 2101a9e2a5f9b7a4082a465b3f8bb1a5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: pfx_char_ball_spin_sonic
-    second: {fileID: 2100000, guid: 8762e1458f2ba92418b4bdba5f501d2c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: sonic_eye
-    second: {fileID: 2100000, guid: 66d0b81627f01b14ab4c9214031427da, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: sonic_mat
-    second: {fileID: 2100000, guid: f839f901750dfe74b8ff26e8bea97b7c, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
